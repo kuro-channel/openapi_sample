@@ -1,0 +1,76 @@
+openapi: 3.0.3 # 使用するOpenAPIのバージョン
+info: # API定義の基本情報
+  title: Sample OpenAPI
+  description: SampleAPIの定義
+  version: 1.0.0
+servers: # APIサーバーの情報/複数の開発環境を記入できる
+  - url: 'http://kuroiwa-dev.com'
+    description: 開発環境
+  - url: 'https://kuroiwa-prod.com'
+    description: 本番環境
+tags: # APIを整理するためのタグ情報を記述
+  - name: 'users'
+    description: ユーザー情報
+  - name: 'products'
+    description: 商品情報
+paths: # paths以下にAPI定義を記述していく
+  '/api/v1/users/':
+    get:
+      description: ユーザー情報取得(全件)
+      tags:
+        - users
+      parameters: []
+      responses:
+        '200':
+          description: A JSON array of User model
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User' # componentsに定義したスキーマ情報をロード
+                example:
+                  - id: 1
+                    user_name: 黒岩テスト1
+                  - id: 2
+                    user_name: 黒岩テスト2
+  '/api/v1/products/':
+    get:
+      description: 商品情報取得(全件)
+      tags:
+        - products
+      parameters: []
+      responses:
+        '200':
+          description: A JSON array of Product model
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product' # componentsに定義したスキーマ情報をロード
+                example:
+                  - id: 1
+                    product_name: 黒岩テスト商品1
+                  - id: 2
+                    product_name: 黒岩テスト商品2
+components: # 個別のスキーマ情報を記述
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+        user_name:
+          type: string
+    Product:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+        product_name:
+          type: string

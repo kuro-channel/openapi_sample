@@ -1,0 +1,2 @@
+# openapi_sample
+openAPIのサンプル
